@@ -56,7 +56,7 @@ export function MagneticCursor() {
   return (
     <div 
       ref={cursorRef} 
-      className="fixed w-8 h-8 border-2 border-white rounded-full pointer-events-none mix-blend-difference z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block" 
+      className="fixed w-8 h-8 border-2 border-white rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden md:block" 
     />
   );
 }

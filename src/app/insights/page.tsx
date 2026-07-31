@@ -1,132 +1,156 @@
-"use client";
+'use client';
 
-import { motion, Variants } from "framer-motion";
-import { TextReveal } from "@/components/animations/TextReveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-import { ShowcaseCard } from "@/components/ui/ShowcaseCard";
-import { caseStudies } from "@/data/case-studies";
-import { blogs } from "@/data/blogs";
+import { newsData } from "@/data/news";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
-const fluidReveal: Variants = {
-  hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { duration: 0.8, ease: [0.32, 0.72, 0, 1] } 
-  }
-};
+const categories = ["All", "Tax Updates", "Corporate Law", "Market Insights", "Firm News"];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
+export default function NewsPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.8, ease: [0.32, 0.72, 0, 1] }
-  },
-};
+  const featuredArticle = newsData.find(n => n.featured) || newsData[0];
+  
+  const filteredNews = activeCategory === "All" 
+    ? newsData.filter(n => n.id !== featuredArticle.id)
+    : newsData.filter(n => n.category === activeCategory && n.id !== featuredArticle.id);
 
-export default function InsightsPage() {
   return (
-    <div className="pt-32 pb-24 min-h-screen">
+    <main className="bg-background min-h-screen pb-32">
       
-      {/* 1. Hero Section from Original Blog Page */}
-      <section className="pt-10 pb-20 px-6 max-w-5xl mx-auto text-center">
-        <Eyebrow align="center">Intelligence</Eyebrow>
-        <h1 className="mb-6 text-5xl md:text-7xl tracking-tight leading-[1.05]">
-          <TextReveal text="Financial intelligence from the ground up" /><span className="text-accent">.</span>
+      {/* Editorial Header */}
+      <section className="pt-32 pb-8 px-6 max-w-7xl mx-auto">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+          <span className="text-xs tracking-[0.3em] uppercase text-muted font-bold font-sans">Intelligence</span>
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-secondary tracking-tighter leading-[0.95]">
+          Market<br />Updates.
         </h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
-          className="text-xl text-muted text-balance max-w-3xl mx-auto leading-relaxed"
-        >
-          Direct perspectives on tax regulations, business structuring, and corporate compliance. No noise. Just signal.
-        </motion.p>
       </section>
 
-      {/* 2. Original Blog Grid */}
-      <section className="py-16 px-6 max-w-7xl mx-auto mb-20 border-b border-black/5">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-32"
-        >
-          {blogs.map((blog, index) => (
-            <motion.article 
-              key={blog.id} 
-              variants={itemVariants}
-              className={`p-2 bg-black/5 rounded-[2.5rem] ring-1 ring-black/5 backdrop-blur-md group ${index === 0 ? 'md:col-span-12' : 'md:col-span-6'}`}
-            >
-              <div className="bg-white/80 rounded-[calc(2.5rem-0.5rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] p-10 md:p-14 h-full flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-2">
-                <div className="flex items-center text-xs tracking-widest font-bold uppercase text-secondary mb-8">
-                  <span>{new Date(blog.date).toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" })}</span>
-                  <span className="mx-4 w-1 h-1 bg-accent rounded-full"></span>
-                  <span>{blog.author}</span>
-                </div>
-                
-                <h2 className={`font-extrabold tracking-tight mb-6 group-hover:text-primary transition-colors ${index === 0 ? 'text-4xl md:text-5xl max-w-3xl' : 'text-3xl'}`}>
-                  {blog.title}<span className="text-accent opacity-0 group-hover:opacity-100 transition-opacity">.</span>
-                </h2>
-                
-                <p className={`text-muted flex-1 leading-relaxed ${index === 0 ? 'text-xl max-w-3xl mb-12' : 'text-lg mb-8'}`}>
-                  {blog.excerpt}
-                </p>
-                
-                <Link href={`/insights/${blog.slug}`} className="mt-auto inline-flex items-center justify-center bg-primary text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:bg-primary/90 w-max group-hover:bg-accent group-hover:text-black">
-                  Read Dispatch
-                  <span className="w-8 h-8 ml-3 bg-white/20 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:translate-x-1">
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </Link>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
-      </section>
-
-      {/* 3. New Case Studies Showcase Grid */}
-      <section className="relative overflow-hidden pt-10">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-          <motion.div 
-            initial="hidden" animate="visible" variants={fluidReveal}
-            className="mb-20 flex flex-col items-start max-w-3xl"
-          >
-            <h2 className="text-[clamp(3rem,6vw,5rem)] font-extrabold leading-[1.05] tracking-tight text-primary mb-6">
-              Strategic Outcomes.
-            </h2>
-            <p className="text-xl text-muted leading-relaxed">
-              Real world application of our structuring models. See how we protect capital and enforce compliance for high growth enterprises.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {caseStudies.map((study, idx) => (
+      {/* Featured Article (The Massive Hero) */}
+      <section className="max-w-[1400px] mx-auto px-6 py-8">
+        <Link href={`/insights/${featuredArticle.slug}`} className="group block relative overflow-hidden rounded-3xl bg-black/5 border border-black/5">
+          <div className="flex flex-col lg:flex-row h-full min-h-[60vh]">
+            
+            {/* Image Side */}
+            <div className="w-full lg:w-3/5 relative overflow-hidden h-[40vh] lg:h-auto">
               <motion.div 
-                key={idx}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={fluidReveal}
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+                style={{ backgroundImage: `url(${featuredArticle.coverImage})` }}
+              />
+              <div className="absolute inset-0 bg-black/10 transition-opacity duration-1000 group-hover:bg-black/0" />
+            </div>
+
+            {/* Text Side */}
+            <div className="w-full lg:w-2/5 bg-surface p-10 md:p-16 flex flex-col justify-center relative">
+              <div className="flex items-center gap-4 mb-8">
+                <span className="px-4 py-1.5 rounded-full border border-black/10 text-xs uppercase tracking-widest font-bold text-secondary">
+                  {featuredArticle.category}
+                </span>
+                <span className="text-xs uppercase tracking-widest font-bold text-muted">
+                  {featuredArticle.date}
+                </span>
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-serif text-secondary tracking-tight leading-[1.1] mb-6 group-hover:text-primary transition-colors duration-500">
+                {featuredArticle.title}
+              </h2>
+              
+              <p className="text-lg text-muted font-sans font-medium leading-relaxed mb-12">
+                {featuredArticle.excerpt}
+              </p>
+
+              <div className="mt-auto flex items-center gap-4">
+                <span className="font-sans uppercase tracking-[0.2em] text-xs font-bold text-secondary group-hover:text-primary transition-colors">Read Briefing</span>
+                <div className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center transition-all duration-500 group-hover:bg-primary group-hover:border-primary">
+                  <ArrowRight className="w-4 h-4 text-secondary group-hover:text-white transition-colors" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </Link>
+      </section>
+
+      {/* Sticky Filter & Grid Section */}
+      <section className="max-w-[1400px] mx-auto px-6 py-8 flex flex-col lg:flex-row gap-8 lg:gap-16 relative">
+        
+        {/* Sticky Sidebar */}
+        <div className="w-full lg:w-1/4 relative">
+          <div className="lg:sticky lg:top-32 space-y-2">
+            <h3 className="font-serif text-2xl text-secondary mb-8">Categories</h3>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`block w-full text-left py-3 border-b border-black/5 transition-colors duration-300 ${
+                  activeCategory === cat 
+                    ? "text-primary font-bold border-black/20" 
+                    : "text-muted hover:text-secondary"
+                }`}
               >
-                <ShowcaseCard {...study} />
-              </motion.div>
+                <span className="text-sm uppercase tracking-[0.1em] font-sans">{cat}</span>
+              </button>
             ))}
           </div>
         </div>
+
+        {/* Asymmetrical Feed */}
+        <div className="w-full lg:w-3/4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
+            {filteredNews.length > 0 ? filteredNews.map((news) => (
+              <Link href={`/insights/${news.slug}`} key={news.id} className="group flex flex-col h-full">
+                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden mb-8 border border-black/5 relative">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style={{ backgroundImage: `url(${news.coverImage})` }}
+                  />
+                </div>
+                
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-[10px] uppercase tracking-widest font-bold text-primary">
+                    {news.category}
+                  </span>
+                  <span className="w-1 h-1 rounded-full bg-black/20" />
+                  <span className="text-[10px] uppercase tracking-widest font-bold text-muted">
+                    {news.date}
+                  </span>
+                </div>
+                
+                <h3 className="text-2xl font-serif text-secondary tracking-tight leading-[1.2] mb-4 group-hover:text-primary transition-colors duration-300">
+                  {news.title}
+                </h3>
+                
+                <p className="text-muted font-sans font-medium line-clamp-3 mb-8">
+                  {news.excerpt}
+                </p>
+                
+                <div className="mt-auto pt-6 border-t border-black/5 flex items-center justify-between">
+                  <span className="text-xs font-sans text-muted/60 font-bold uppercase tracking-widest">{news.readTime}</span>
+                  <ArrowRight className="w-4 h-4 text-black/20 group-hover:text-primary transition-colors transform group-hover:translate-x-1" />
+                </div>
+              </Link>
+            )) : (
+              <div className="col-span-full py-24 text-center border border-black/5 rounded-3xl bg-black/5">
+                <p className="text-xl text-muted font-sans">No intelligence briefings found in this category.</p>
+                <button 
+                  onClick={() => setActiveCategory("All")}
+                  className="mt-6 text-sm uppercase tracking-widest font-bold text-primary hover:text-secondary transition-colors"
+                >
+                  View All Updates
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
       </section>
-    </div>
+
+    </main>
   );
 }

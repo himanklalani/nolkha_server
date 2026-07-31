@@ -39,3 +39,28 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Agents & AI configuration files
+AGENTS.md
+agents.md
+CLAUDE.md
+claude.md
+.agents/
+.gemini/
+.tempmediaStorage/
+
+# Screen recordings & raw media (except site video assets in public/videos)
+*.mp4
+!public/videos/*.mp4
+*.webm
+*.mov
+*.avi
+*.mkv
+
+# Small standalone root scripts & scratch files
+showcase-card.js
+step-card-2.js
+step-card.js
+*.py
+*.sh
+*.ps1

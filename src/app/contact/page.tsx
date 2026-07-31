@@ -1,7 +1,7 @@
 'use client';
 
 import { Mail, MapPin, Phone, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useState, useRef } from "react";
 import { useLenis } from 'lenis/react';
 import { TextReveal } from "@/components/animations/TextReveal";
@@ -16,11 +16,14 @@ export default function ContactPage() {
     name: "",
     email: "",
     phone: "",
-    context: ""
+    context: "",
+    honeypot: ""
   });
 
   const [activeObjective, setActiveObjective] = useState<string | null>(null);
   const [activeScale, setActiveScale] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -43,10 +46,17 @@ export default function ContactPage() {
     "High Net-Worth Individual"
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate network latency for the premium feel
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
     console.log("Submitting:", { ...formData, objective: activeObjective, scale: activeScale });
-    alert("Transmission Secured. We will contact you shortly.");
+    
+    setIsSubmitting(false);
+    setIsSuccess(true);
   };
 
   const lenis = useLenis();
@@ -76,7 +86,7 @@ export default function ContactPage() {
           loop 
           muted 
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen" 
+          className="absolute inset-0 w-full h-full object-cover opacity-30 grayscale" 
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/80" />
         
@@ -145,7 +155,7 @@ export default function ContactPage() {
                   transition={{ duration: 1, ease: [0.32, 0.72, 0, 1] }}
                 >
                   <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-px bg-secondary/20" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent" />
                     <span className="text-xs tracking-[0.3em] uppercase text-muted font-bold">Contact</span>
                   </div>
                   
@@ -188,19 +198,33 @@ export default function ContactPage() {
                       </div>
                     </div>
                   </div>
+
+                  <div className="mt-16 p-8 bg-black/5 rounded-2xl border border-black/5">
+                    <h3 className="text-xl font-serif text-secondary mb-4 tracking-tight">Careers & Institutional Pathways</h3>
+                    <p className="text-sm text-muted font-sans leading-relaxed mb-6">
+                      We actively recruit exceptional talent for our practice. If you are driven by precision, compliance, and strategic structuring, submit your credentials.
+                    </p>
+                    <a href="mailto:careers@nolkhaca.com" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-secondary group">
+                      Submit Credentials <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  </div>
                 </motion.div>
               </div>
             </div>
 
             {/* Right Column (Scrolling Form) */}
             <div className="lg:col-span-7 pt-10 lg:pt-32 pb-32">
-              <motion.form 
-                onSubmit={handleSubmit}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
-                className="space-y-16"
-              >
+              <AnimatePresence mode="wait">
+                {!isSuccess ? (
+                <motion.form 
+                  key="form"
+                  onSubmit={handleSubmit}
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  transition={{ duration: 1, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
+                  className="space-y-16"
+                >
                 
                 {/* Objective Section */}
                 <div className="space-y-8 relative">
@@ -260,6 +284,20 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {/* Anti-Spam Honeypot */}
+                <div aria-hidden="true" className="absolute opacity-0 -z-50 pointer-events-none">
+                  <label htmlFor="website_url">Website</label>
+                  <input 
+                    type="text" 
+                    id="website_url" 
+                    name="website_url" 
+                    tabIndex={-1} 
+                    autoComplete="off" 
+                    value={formData.honeypot} 
+                    onChange={e => setFormData({...formData, honeypot: e.target.value})} 
+                  />
+                </div>
+
                 {/* Details Section */}
                 <div className="space-y-8 relative">
                   <div className="absolute -left-6 lg:-left-12 top-0 h-full w-px bg-black/5 hidden md:block" />
@@ -289,16 +327,36 @@ export default function ContactPage() {
 
                 {/* Submit Button */}
                 <div className="pt-8">
-                  <button type="submit" className="w-full group relative overflow-hidden bg-secondary text-white h-20 flex items-center justify-between px-8 transition-transform duration-500 hover:scale-[1.02]">
+                  <button type="submit" disabled={isSubmitting} className="w-full group relative overflow-hidden bg-secondary text-white h-20 flex items-center justify-between px-8 transition-all duration-500 hover:scale-[1.02] disabled:opacity-80 disabled:hover:scale-100 disabled:cursor-not-allowed">
                     <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)]" />
-                    <span className="relative z-10 font-serif text-2xl tracking-tight">Initiate Transmission</span>
+                    <span className="relative z-10 font-serif text-2xl tracking-tight">
+                      {isSubmitting ? "Encrypting Transmission..." : "Initiate Transmission"}
+                    </span>
                     <div className="relative z-10 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white group-hover:text-primary transition-all duration-500">
-                      <ArrowRight className="w-5 h-5 transition-transform duration-500 group-hover:-rotate-45" />
+                      <ArrowRight className={`w-5 h-5 transition-transform duration-500 ${isSubmitting ? 'translate-x-2' : 'group-hover:-rotate-45'}`} />
                     </div>
                   </button>
                 </div>
 
               </motion.form>
+              ) : (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+                  className="h-full min-h-[60vh] flex flex-col items-center justify-center text-center p-8 bg-black/5 rounded-3xl border border-black/5"
+                >
+                  <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mb-8">
+                    <div className="w-8 h-8 border-r-2 border-b-2 border-white transform rotate-45 -translate-y-1" />
+                  </div>
+                  <h3 className="text-4xl md:text-5xl font-serif text-secondary tracking-tight mb-6">Transmission<br />Secured.</h3>
+                  <p className="text-muted font-sans text-lg max-w-md mx-auto leading-relaxed">
+                    Your parameters have been logged. A senior partner will analyze your requirements and contact you within one business day.
+                  </p>
+                </motion.div>
+              )}
+              </AnimatePresence>
             </div>
           </div>
         </div>

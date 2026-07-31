@@ -1,4 +1,5 @@
 import { services } from "@/data/services";
+import { newsData } from "@/data/news";
 import { notFound } from "next/navigation";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Button } from "@/components/ui/Button";
@@ -56,7 +57,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
             <div className="text-[10px] uppercase tracking-widest font-bold text-muted mb-4">Index</div>
             <a href="#overview" className="text-sm font-bold text-secondary hover:text-accent transition-colors">01. Service Overview</a>
             <a href="#compliance" className="text-sm font-bold text-muted hover:text-accent transition-colors">02. Regulatory Framework</a>
-            <a href="#advisory" className="text-sm font-bold text-muted hover:text-accent transition-colors">03. Advisory Scope</a>
+            <a href="#insights" className="text-sm font-bold text-muted hover:text-accent transition-colors">03. Related Intelligence</a>
+            <a href="#advisory" className="text-sm font-bold text-muted hover:text-accent transition-colors">04. Advisory Scope</a>
           </div>
         </div>
 
@@ -96,6 +98,27 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
                text={`The ${service.title.toLowerCase()} landscape is defined by extreme regulatory scrutiny and dynamic legislative shifts. Our institutional framework ensures perfect statutory adherence while simultaneously leveraging systemic efficiencies to preserve operational liquidity. We do not just file; we engineer.`}
                className="text-3xl md:text-5xl font-bold tracking-tight leading-[1.3] text-secondary"
              />
+          </section>
+
+          {/* Section 2.5: Related Insights */}
+          <section id="insights" className="scroll-mt-40 border-t border-black/10 pt-24">
+             <Eyebrow align="left" color="primary" className="mb-12">Related Intelligence</Eyebrow>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+               {newsData.slice(0, 2).map((news) => (
+                 <Link href={`/insights/${news.slug}`} key={news.id} className="group block bg-black/5 rounded-3xl p-8 border border-black/5 hover:bg-black/10 transition-colors">
+                   <div className="flex items-center gap-3 mb-4">
+                     <span className="text-[10px] uppercase tracking-widest font-bold text-primary">{news.category}</span>
+                     <span className="w-1 h-1 rounded-full bg-black/20" />
+                     <span className="text-[10px] uppercase tracking-widest font-bold text-muted">{news.readTime}</span>
+                   </div>
+                   <h3 className="text-2xl font-serif text-secondary tracking-tight mb-4 group-hover:text-primary transition-colors">{news.title}</h3>
+                   <div className="flex items-center gap-2 mt-8 text-secondary">
+                     <span className="text-xs uppercase tracking-widest font-bold">Read Briefing</span>
+                     <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                   </div>
+                 </Link>
+               ))}
+             </div>
           </section>
 
           {/* Section 3: CTA */}

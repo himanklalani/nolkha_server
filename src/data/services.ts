@@ -1,4 +1,4 @@
-import { FileText, Building, LineChart, Globe, Building2, TrendingUp, Landmark } from "lucide-react";
+import { FileText, Building, LineChart, Globe, Building2, TrendingUp, Landmark, ShieldCheck, Scale, Briefcase } from "lucide-react";
 import { WalletIcon, VideoStreamingIcon } from "@/components/ui/Icons";
 
 export const services = [
@@ -48,7 +48,7 @@ export const services = [
     slug: "international-tax",
     icon: Globe,
     shortDescription: "Cross-border structuring, FEMA compliance, and Transfer Pricing mitigation.",
-    fullDescription: "Expanding globally introduces severe regulatory complexities. We engineer robust cross-border tax structures, manage Transfer Pricing (TP) documentation, and handle all RBI/FEMA filings. We ensure your international capital movements are perfectly compliant and optimized for tax efficiency."
+    fullDescription: "Expanding globally introduces severe regulatory complexities. We structure cross-border taxation, manage Transfer Pricing (TP) documentation, and handle all RBI/FEMA filings. We ensure your international capital movements are perfectly compliant and optimized for tax efficiency."
   },
   {
     id: "real-estate-advisory",
@@ -72,6 +72,54 @@ export const services = [
     slug: "loan-syndication",
     icon: Landmark,
     shortDescription: "Securing enterprise capital, debt restructuring, and project finance.",
-    fullDescription: "Scaling operations require robust capital infusion. We prepare comprehensive project reports, negotiate with financial institutions, and secure optimal debt financing. From working capital limits to massive project loans, we engineer your debt structure for sustainable growth."
+    fullDescription: "Scaling operations require significant capital infusion. We prepare comprehensive project reports, negotiate with financial institutions, and secure optimal debt financing. From working capital limits to massive project loans, we engineer your debt structure for sustainable growth."
+  },
+  {
+    id: "gst-audit-representation",
+    title: "GST Audit & Representation",
+    slug: "gst-audit-representation",
+    icon: ShieldCheck,
+    shortDescription: "Aggressive defense against GST notices and comprehensive ITC reconciliation.",
+    fullDescription: "The GST department uses aggressive AI to flag Input Tax Credit (ITC) mismatches. As the premier GST consultants in Thane, we provide pre-emptive forensic audits and fierce representation during departmental scrutiny to protect your working capital."
+  },
+  {
+    id: "fema-cross-border-structuring",
+    title: "FEMA & Cross-Border Structuring",
+    slug: "fema-cross-border-structuring",
+    icon: Globe,
+    shortDescription: "Flawless RBI compliance for foreign direct investment (FDI) and overseas ventures.",
+    fullDescription: "Tech startups and international conglomerates face massive penalties for minor FEMA violations. We engineer bulletproof Form FC-GPR filings, precise valuation certificates, and overseas direct investment (ODI) structuring for scaling companies in Mumbai."
+  },
+  {
+    id: "startup-accounting-cfo",
+    title: "Startup Accounting & CFO",
+    slug: "startup-accounting-cfo",
+    icon: LineChart,
+    shortDescription: "Venture-ready financial architecture, cap table management, and burn rate analysis.",
+    fullDescription: "Venture Capitalists demand immaculate financials. We provide comprehensive outsourced accounting and Virtual CFO services specifically tailored for high-growth startups. We manage everything from ESOP structuring to sophisticated unit economics modeling."
+  },
+  {
+    id: "real-estate-reit-structuring",
+    title: "Private REIT Structuring",
+    slug: "real-estate-reit-structuring",
+    icon: Building2,
+    shortDescription: "Tax-efficient real estate holding structures for developers and HNI investors.",
+    fullDescription: "Holding commercial real estate in standard entities is highly tax-inefficient. We engineer sophisticated private REITs and special purpose vehicles (SPVs) that optimize rental yield taxation and maximize capital gains exemptions."
+  },
+  {
+    id: "mergers-acquisitions",
+    title: "Mergers & Acquisitions Advisory",
+    slug: "mergers-acquisitions",
+    icon: Briefcase,
+    shortDescription: "Forensic due diligence, valuation modeling, and post-merger integration strategy.",
+    fullDescription: "Acquisitions require absolute certainty. Our M&A desk conducts exhaustive financial due diligence to uncover hidden liabilities, builds definitive valuation models, and structures the deal to maximize tax advantages for both the buyer and seller."
+  },
+  {
+    id: "corporate-secretarial",
+    title: "Corporate Secretarial Services",
+    slug: "corporate-secretarial",
+    icon: Scale,
+    shortDescription: "MCA compliance, board meeting administration, and authorized capital restructuring.",
+    fullDescription: "We handle the entire spectrum of Ministry of Corporate Affairs (MCA) compliance. From filing annual returns and managing board resolutions to complex authorized capital restructuring and share allotments, we ensure your entity remains in perfect standing."
   }
 ];

@@ -2,129 +2,137 @@
 
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
-import { MapPin, Users, Target } from "lucide-react";
+import { MapPin, Target, ShieldCheck, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { TextReveal } from "@/components/animations/TextReveal";
 import { BlockTextReveal } from "@/components/animations/BlockTextReveal";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { TextType } from "@/components/animations/TextType";
 import { ScrollOpacityText } from "@/components/animations/ScrollOpacityText";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.8, ease: [0.32, 0.72, 0, 1] }
-  },
-};
-
 export default function AboutPage() {
   return (
-    <>
-      <section className="relative pt-40 pb-24 px-6 max-w-6xl mx-auto overflow-hidden">
-        {/* Ambient background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 rounded-full blur-[120px] transform-gpu pointer-events-none" />
+    <main className="bg-background min-h-screen pb-32">
+      {/* Editorial Header */}
+      <section className="pt-32 pb-12 px-6 max-w-7xl mx-auto">
+        <div className="flex items-center gap-4 mb-8">
+          <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+          <span className="text-xs tracking-[0.3em] uppercase text-muted font-bold font-sans">Firm Profile</span>
+        </div>
         
-        <div className="relative z-10 flex flex-col md:flex-row gap-16 items-center">
-          <div className="w-full md:w-1/2">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}>
-              <Eyebrow align="left" color="primary">Firm Profile</Eyebrow>
-            </motion.div>
-            <h1 className="text-5xl md:text-6xl lg:text-[72px] leading-[1.05] tracking-tight mb-8">
-              <TextType text="Built on accuracy. Driven by your growth." delay={0.5} duration={0.02} staggerDuration={0.02} />
-            </h1>
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-secondary tracking-tighter leading-[0.95] mb-8">
+          The Last Firm<br />You'll Need.
+        </h1>
+        
+        <div className="max-w-2xl ml-auto border-l border-black/10 pl-8">
+          <p className="text-xl text-muted font-sans leading-relaxed font-medium">
+            We established Nolkha & Co to provide scaling businesses and high-net-worth individuals with financial strategies that go far beyond basic compliance. Recognized as the <Link href="/services" className="text-secondary border-b border-secondary/30 hover:border-secondary transition-colors">best CA in Thane</Link> and a premier advisory firm in Mumbai, we are engineers of capital efficiency.
+          </p>
+        </div>
+      </section>
+
+      {/* Massive Scroll Opacity Statement */}
+      <section className="py-16 md:py-24 px-6 max-w-5xl mx-auto flex items-center justify-center border-t border-black/5 mt-8">
+        <ScrollOpacityText 
+          text="In an era of strict compliance and shifting capital gains frameworks, defensive accounting is no longer sufficient. We engineer corporate structures that anticipate regulatory audits rather than merely responding to them. By stress-testing your financial architecture, we insulate your enterprise from statutory friction while legally maximizing your capital retention."
+          className="text-4xl md:text-5xl lg:text-6xl font-serif tracking-tight leading-[1.1] text-secondary text-center"
+        />
+      </section>
+
+      {/* Editorial Core Values Grid */}
+      <section className="max-w-[1400px] mx-auto px-6 py-16 border-t border-black/5">
+        <div className="flex items-center gap-4 mb-12">
+          <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+          <span className="text-xs tracking-[0.3em] uppercase text-muted font-bold font-sans">Our Architecture</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+          {/* Mission */}
+          <div className="space-y-8 group">
+            <div className="w-16 h-16 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-secondary group-hover:border-secondary transition-colors duration-500">
+              <Target className="w-6 h-6 text-secondary group-hover:text-white transition-colors" />
+            </div>
+            <div>
+              <h3 className="text-3xl font-serif text-secondary mb-4 tracking-tight">The Mission</h3>
+              <p className="text-muted leading-relaxed font-sans text-lg">
+                To deliver proactive financial structuring that prevents liabilities before they compound. We act as your ultimate financial shield, protecting both corporate capital and personal wealth.
+              </p>
+            </div>
           </div>
-          <motion.div 
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
-            className="w-full md:w-1/2"
-          >
-            <p className="text-xl text-muted text-balance leading-relaxed mb-8">
-              We established Nolkha & Co to provide scaling businesses and individuals with financial strategies that go beyond basic compliance. We are engineers of capital efficiency.
+
+          {/* Defense */}
+          <div className="space-y-8 group">
+            <div className="w-16 h-16 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-secondary group-hover:border-secondary transition-colors duration-500">
+              <ShieldCheck className="w-6 h-6 text-secondary group-hover:text-white transition-colors" />
+            </div>
+            <div>
+              <h3 className="text-3xl font-serif text-secondary mb-4 tracking-tight">Direct Access</h3>
+              <p className="text-muted leading-relaxed font-sans text-lg">
+                You work directly with experienced partners. No junior handoffs for critical decisions. We believe in brutal transparency and high-velocity communication.
+              </p>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="space-y-8 group">
+            <div className="w-16 h-16 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-secondary group-hover:border-secondary transition-colors duration-500">
+              <MapPin className="w-6 h-6 text-secondary group-hover:text-white transition-colors" />
+            </div>
+            <div>
+              <h3 className="text-3xl font-serif text-secondary mb-4 tracking-tight">Thane HQ</h3>
+              <p className="text-muted leading-relaxed font-sans text-lg">
+                Headquartered in Wagle Estate, Thane. As the top CA in Mumbai Metropolitan Region (MMR), we serve local enterprises, manufacturers, and technology startups across the footprint, delivering unmatched <Link href="/services" className="text-secondary hover:underline">statutory audit</Link> and tax consulting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Founder Profile */}
+      <section className="max-w-[1400px] mx-auto px-6 py-24 border-t border-black/5">
+        <div className="flex flex-col md:flex-row items-center gap-16 lg:gap-24">
+          <div className="w-full md:w-1/2 relative">
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-black/5 bg-black/5">
+              {/* Founder Image Placeholder - Please replace with actual photo */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center grayscale"
+                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop')" }}
+              />
+            </div>
+
+          </div>
+          
+          <div className="w-full md:w-1/2 space-y-8">
+            <div className="flex items-center gap-4">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+              <span className="text-xs tracking-[0.2em] uppercase text-muted font-bold font-sans">Leadership</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-serif text-secondary tracking-tight">
+              Absolute compliance. Maximum efficiency.
+            </h2>
+            <p className="text-lg text-muted font-sans font-medium leading-relaxed">
+              "A standard accounting firm files your taxes and tells you what happened last year. We engineer your corporate structure to dictate what happens next year. Our mandate is to provide scaling enterprises with the aggressive capital preservation strategies usually reserved for Fortune 500 companies."
             </p>
-              <Button size="lg" variant="accent" withTrailingIcon asChild>
-                <Link href="/contact">Partner With Us</Link>
-              </Button>
-          </motion.div>
+            <div>
+              <p className="font-serif text-xl text-secondary font-bold">Mr. Nolkha</p>
+              <p className="text-sm uppercase tracking-widest text-muted font-bold font-sans">Managing Partner</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Dense Regulatory Text Scrubbing Section */}
-      <section className="py-32 px-6 max-w-4xl mx-auto min-h-[120vh] flex items-center border-t border-black/5">
-        <div>
-          <Eyebrow align="left" color="accent" className="mb-8">Regulatory Philosophy</Eyebrow>
-          <ScrollOpacityText 
-            text="In an era of hyper-vigilant compliance and shifting capital gains frameworks, defensive accounting is no longer sufficient. We engineer robust corporate structures that anticipate regulatory audits rather than merely responding to them. By deploying continuous stress-testing across your financial architecture, we insulate your enterprise from statutory friction while legally maximizing your capital retention."
-            className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.2] text-secondary"
-          />
-        </div>
+      {/* Bottom CTA to Partner */}
+      <section className="py-16 px-6 border-t border-black/5 flex flex-col items-center text-center">
+        <h2 className="text-4xl font-serif text-secondary tracking-tight mb-8">
+          Secure your financial architecture.
+        </h2>
+        <Link href="/contact" className="inline-flex items-center gap-4 group/link">
+          <span className="font-sans uppercase tracking-[0.2em] text-sm font-bold text-secondary">Schedule Confidential Consultation</span>
+          <div className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center transition-all duration-500 group-hover/link:bg-secondary group-hover/link:border-secondary">
+            <ArrowRight className="w-5 h-5 text-secondary group-hover/link:text-white transition-colors" />
+          </div>
+        </Link>
       </section>
 
-      {/* Asymmetrical Bento Grid */}
-      <section className="py-24 px-6 bg-surface border-y border-black/5 relative">
-        <div className="absolute inset-0 bg-grid-pattern opacity-50 mix-blend-multiply pointer-events-none" />
-        
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 relative z-10"
-        >
-          {/* Mission - Full Width Span */}
-          <motion.div variants={itemVariants} className="md:col-span-12">
-            <div className="p-2 bg-black/5 rounded-[2.5rem] ring-1 ring-black/5 backdrop-blur-md">
-              <div className="bg-white/80 rounded-[calc(2.5rem-0.5rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] p-12 md:p-16 flex flex-col md:flex-row gap-12 items-center">
-                <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center shrink-0 border border-accent/20">
-                  <Target className="w-8 h-8 text-accent" />
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold mb-4 tracking-tight">Our Mission<span className="text-accent">.</span></h3>
-                  <p className="text-lg text-muted leading-relaxed">
-                    To deliver proactive financial structuring and auditing that prevents problems before they occur. We aim to be the last CA firm you ever need to hire, acting as your ultimate financial shield.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Approach - Half Span */}
-          <motion.div variants={itemVariants} className="md:col-span-7">
-            <div className="p-2 bg-black/5 rounded-[2.5rem] ring-1 ring-black/5 backdrop-blur-md h-full">
-              <div className="bg-white/80 rounded-[calc(2.5rem-0.5rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] p-10 h-full flex flex-col justify-center">
-                <Users className="w-10 h-10 text-primary mb-6" />
-                <h3 className="text-2xl font-bold mb-4 tracking-tight">Direct Access<span className="text-accent">.</span></h3>
-                <p className="text-muted leading-relaxed">
-                  You work directly with experienced partners. No junior handoffs for critical decisions. We believe in brutal transparency and high-velocity communication.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Location - Half Span */}
-          <motion.div variants={itemVariants} className="md:col-span-5">
-            <div className="p-2 bg-black/5 rounded-[2.5rem] ring-1 ring-black/5 backdrop-blur-md h-full">
-              <div className="bg-white/80 rounded-[calc(2.5rem-0.5rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] p-10 h-full flex flex-col justify-center">
-                <MapPin className="w-10 h-10 text-primary mb-6" />
-                <h3 className="text-2xl font-bold mb-4 tracking-tight">Thane HQ<span className="text-accent">.</span></h3>
-                <p className="text-muted leading-relaxed">
-                  Headquartered in Wagle Estate, Thane. We serve local enterprises, manufacturers, and technology startups across the MMR footprint.
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
-    </>
+    </main>
   );
 }

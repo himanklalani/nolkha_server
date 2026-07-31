@@ -2,105 +2,117 @@
 
 import { services } from "@/data/services";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { TextReveal } from "@/components/animations/TextReveal";
-import { ExpandableDrawer } from "@/components/ui/ExpandableDrawer";
-import { HoverFillButton } from "@/components/animations/HoverFillButton";
-import { Eyebrow } from "@/components/ui/Eyebrow";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 50, rotateX: 10 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    rotateX: 0,
-    transition: { duration: 1, ease: [0.32, 0.72, 0, 1] }
-  },
-};
+import { ArrowUpRight } from "lucide-react";
 
 export default function ServicesPage() {
   return (
-    <>
-      <section className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center">
-        <div className="max-w-[1400px] mx-auto text-center flex flex-col items-center">
-          <Eyebrow align="center" color="primary">Capabilities</Eyebrow>
+    <main className="bg-background min-h-[200vh]">
+      {/* Editorial Header */}
+      <section className="pt-32 pb-12 px-6 max-w-[1400px] mx-auto">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+              <span className="text-xs tracking-[0.2em] uppercase text-muted font-bold font-sans">Core Capabilities</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-secondary tracking-tighter leading-[0.95]">
+              Structural<br />Alignment.
+            </h1>
+          </div>
+          
+          <div className="max-w-md">
+            <p className="text-lg text-muted font-sans leading-relaxed font-medium">
+              We engineer the financial architecture necessary to dominate your market. Scroll to explore our core practice areas.
+            </p>
+          </div>
         </div>
-        <h1 className="mb-6 text-5xl md:text-7xl tracking-tight leading-[1.05]">
-          <TextReveal text="Financial strategy for every stage of growth" /><span className="text-accent">.</span>
-        </h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.32, 0.72, 0, 1] }}
-          className="text-xl text-muted text-balance max-w-3xl mx-auto"
-        >
-          From company registration to complex tax structuring, we provide the architectural expertise necessary to dominate India's financial landscape.
-        </motion.p>
       </section>
 
-      {/* Z-Axis Cascade */}
-      <section className="py-16 px-6 max-w-6xl mx-auto mb-32">
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
-        >
-          {services.map((service, index) => (
-            <motion.div 
-              key={service.id} 
-              variants={itemVariants}
-              className={`p-2 bg-black/5 rounded-[2.5rem] ring-1 ring-black/5 backdrop-blur-md group ${index % 2 !== 0 ? 'md:mt-16' : ''}`}
-            >
-              <div className="bg-white/80 rounded-[calc(2.5rem-0.5rem)] shadow-[inset_0_1px_1px_rgba(255,255,255,1)] p-10 md:p-12 h-full flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-y-2">
-                <div className="w-16 h-16 rounded-full bg-surface border border-border flex items-center justify-center mb-8 shrink-0 shadow-sm transition-transform duration-500 group-hover:scale-110">
-                  <service.icon className="w-8 h-8 text-primary" />
-                </div>
-                <h2 className="text-3xl font-bold mb-4 tracking-tight text-primary transition-colors">{service.title}<span className="text-accent">.</span></h2>
-                <p className="text-muted mb-10 flex-1 leading-relaxed text-lg">{service.shortDescription}</p>
+      {/* Sticky Stacking Cards Container */}
+      <section className="max-w-[1200px] mx-auto px-6 py-12 relative pb-32">
+        <div className="flex flex-col gap-12">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            
+            // Calculate a staggered top offset. We use a CSS variable trick or just inline style
+            // We'll use a smaller gap (12px) for mobile to save vertical space, and 20px for desktop.
+            const stickyTop = `calc(80px + ${index * 8}px)`;
+
+            return (
+              <div 
+                key={service.id}
+                className="sticky shadow-[0_-10px_40px_rgba(0,0,0,0.03)] rounded-3xl lg:rounded-[3rem] bg-white border border-black/5 overflow-hidden group"
+                style={{ top: stickyTop }}
+              >
+
                 
-                <div className="mt-auto self-start">
-                  <Link href={`/services/${service.slug}`}>
-                    <HoverFillButton withArrow={true} fillColor="bg-primary">
-                      View Details
-                    </HoverFillButton>
-                  </Link>
+                <div className="p-6 md:p-16 lg:p-20 flex flex-col lg:flex-row gap-6 lg:gap-24 relative z-10">
+                  
+                  {/* Left Column (Icon & Title) */}
+                  <div className="w-full lg:w-1/3">
+                    <div className="flex items-center gap-4 lg:block">
+                      <div className="w-12 h-12 lg:w-20 lg:h-20 shrink-0 rounded-2xl bg-black/5 flex items-center justify-center border border-black/5 lg:mb-12">
+                        <Icon className="w-6 h-6 lg:w-10 lg:h-10 text-secondary" />
+                      </div>
+                      <h2 className="text-2xl md:text-5xl font-serif text-secondary tracking-tight leading-[1.1] lg:mb-6">
+                        {service.title}
+                      </h2>
+                    </div>
+                    
+                    <div className="hidden lg:block text-[6rem] leading-none font-serif text-black/[0.03] absolute -top-4 -left-4 pointer-events-none select-none">
+                      0{index + 1}
+                    </div>
+                  </div>
+
+                  {/* Right Column (Content) */}
+                  <div className="w-full lg:w-2/3 flex flex-col justify-center">
+                    <p className="text-base md:text-2xl text-muted font-sans font-medium leading-relaxed mb-6">
+                      {service.shortDescription}
+                    </p>
+                    
+                    <p className="hidden md:block text-lg text-muted/80 font-sans leading-relaxed mb-12">
+                      {service.fullDescription}
+                    </p>
+                    
+                    <Link href={`/services/${service.slug}`} className="inline-flex items-center gap-4 group/btn w-max">
+                      <span className="font-sans uppercase tracking-[0.2em] text-sm font-bold text-secondary">Analyze Protocol</span>
+                      <div className="w-12 h-12 rounded-full border border-black/20 flex items-center justify-center transition-all duration-500 group-hover/btn:bg-secondary group-hover/btn:border-secondary">
+                        <ArrowUpRight className="w-5 h-5 text-secondary group-hover/btn:text-white transition-colors" />
+                      </div>
+                    </Link>
+                  </div>
+                  
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+            );
+          })}
+        </div>
       </section>
 
-      {/* Expandable Drawers FAQ Section */}
-      <section className="py-24 px-6 max-w-4xl mx-auto border-t border-black/5">
-        <div className="mb-16 text-center">
-          <h2 className="text-4xl md:text-5xl tracking-tight font-bold mb-6">Frequently Asked Questions</h2>
-          <p className="text-xl text-muted">Clarification on our operational models and engagement structure.</p>
-        </div>
-        
-        <div className="flex flex-col">
-          <ExpandableDrawer title="Do you handle enterprise-level international taxation?" defaultOpen={true}>
-            Yes. We specialize in cross-border tax structuring, Transfer Pricing (TP) regulations, and FEMA compliance for multinationals operating in India.
-          </ExpandableDrawer>
-          <ExpandableDrawer title="What is your standard onboarding timeline?">
-            Our typical onboarding sequence takes 48-72 hours. This includes a complete audit of your current financial architecture, establishing secure communication channels, and deploying our initial strategic roadmap.
-          </ExpandableDrawer>
-          <ExpandableDrawer title="Do I get direct access to the partners?">
-            Absolutely. At Nolkha & Co, you are never handed off to a junior associate for critical strategy. Our partners lead every engagement, ensuring high-velocity decision-making.
-          </ExpandableDrawer>
+      {/* Trust Metrics Bar */}
+      <section className="max-w-[1400px] mx-auto px-6 pb-24 relative z-20">
+        <div className="border border-black/5 rounded-3xl p-8 bg-black/5 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-xl">
+          <div className="flex items-center gap-12">
+            <div>
+              <div className="text-2xl font-serif font-bold text-secondary tracking-tight">₹500Cr+</div>
+              <div className="text-xs uppercase tracking-widest text-muted font-bold font-sans mt-1">Capital Structured</div>
+            </div>
+            <div className="w-px h-12 bg-black/10 hidden md:block" />
+            <div>
+              <div className="text-2xl font-serif font-bold text-secondary tracking-tight">50+</div>
+              <div className="text-xs uppercase tracking-widest text-muted font-bold font-sans mt-1">Enterprises Scaled</div>
+            </div>
+          </div>
+          
+          <Link href="/contact" className="group flex items-center gap-3">
+            <span className="text-xs uppercase tracking-widest text-secondary font-bold group-hover:text-primary transition-colors">Start a Project</span>
+            <div className="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center group-hover:bg-primary transition-colors">
+              <ArrowUpRight className="w-3 h-3" />
+            </div>
+          </Link>
         </div>
       </section>
-    </>
+
+    </main>
   );
 }
