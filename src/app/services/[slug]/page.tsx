@@ -148,7 +148,26 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
             {/* Section 5: Interactive Diagnostic Tool */}
             {service.calculatorConfig && (
               <section id="diagnostic" className="scroll-mt-40 border-t border-black/10 pt-24">
-                {service.calculatorConfig.type === 'tax-optimization' && <TaxOptimizationCalculator />}
+                <Eyebrow align="left" color="primary" className="mb-12">Diagnostic Tool</Eyebrow>
+                {service.calculatorConfig.type === 'tax-optimization' ? (
+                  <TaxOptimizationCalculator />
+                ) : (
+                  <div className="w-full bg-black/5 rounded-[3rem] p-12 md:p-20 border border-black/10 flex flex-col items-center justify-center text-center gap-6 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-[url('/images/deliverables-bg.png')] bg-cover bg-center opacity-10 mix-blend-overlay pointer-events-none" />
+                    
+                    <div className="w-20 h-20 rounded-full bg-white border border-black/10 flex items-center justify-center mb-4 relative z-10 shadow-sm">
+                      <Icon className="w-8 h-8 text-secondary" />
+                    </div>
+                    
+                    <h3 className="text-3xl md:text-4xl font-serif text-secondary tracking-tight relative z-10">
+                      Diagnostic Tool Under Calibration
+                    </h3>
+                    
+                    <p className="text-muted font-sans text-lg max-w-xl relative z-10">
+                      The interactive <strong>{service.calculatorConfig.title}</strong> is currently being calibrated with the latest statutory data. This advanced diagnostic module is available exclusively during partner-level strategy sessions.
+                    </p>
+                  </div>
+                )}
               </section>
             )}
 
