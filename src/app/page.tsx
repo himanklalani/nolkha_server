@@ -74,7 +74,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-20" />
         </div>
 
-        <div className="relative z-30 text-center flex flex-col items-center mb-24 px-4">
+        <div className="relative z-30 text-center flex flex-col items-center mt-12 px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
