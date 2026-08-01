@@ -1,14 +1,50 @@
 import { FileText, Building, LineChart, Globe, Building2, TrendingUp, Landmark, ShieldCheck, Scale, Briefcase } from "lucide-react";
 import { WalletIcon, VideoStreamingIcon } from "@/components/ui/Icons";
 
-export const services = [
+export interface Service {
+  id: string;
+  title: string;
+  slug: string;
+  icon: React.ElementType;
+  shortDescription: string;
+  fullDescription: string;
+  regulatoryFramework?: string[];
+  executionTimeline?: { title: string; description: string }[];
+  deliverables?: string[];
+  calculatorConfig?: {
+    type: string;
+    title: string;
+  };
+}
+
+export const services: Service[] = [
   {
     id: "tax-consulting",
     title: "Tax Consulting",
     slug: "tax-consulting",
     icon: WalletIcon,
     shortDescription: "Clear, compliant tax strategies that minimize liabilities and avoid surprises.",
-    fullDescription: "Tax laws change constantly. We build tax strategies that keep your business compliant while minimizing liabilities. Whether you are an individual, a startup, or an enterprise, we manage your filings, handle notices, and structure your transactions to keep more capital in your business."
+    fullDescription: "Tax laws change constantly. We build tax strategies that keep your business compliant while minimizing liabilities. Whether you are an individual, a startup, or an enterprise, we manage your filings, handle notices, and structure your transactions to keep more capital in your business.",
+    regulatoryFramework: [
+      "Income Tax Act 1961",
+      "Sec 147/148 Reassessment Defense",
+      "Capital Gains Sec 54/54F Optimization"
+    ],
+    executionTimeline: [
+      { title: "Diagnostic Audit", description: "Comprehensive review of past returns, capital structures, and potential exposure areas." },
+      { title: "Strategy Formulation", description: "Engineering a bespoke tax architecture minimizing leakage via legal exemptions and deductions." },
+      { title: "Statutory Execution", description: "Flawless filing of returns, response to departmental notices, and active representation." },
+      { title: "Continuous Optimization", description: "Quarterly reviews adjusting for new finance bill amendments and shifting business models." }
+    ],
+    deliverables: [
+      "Annual Tax Architecture Report",
+      "Tax Audit Form 3CD",
+      "Dispute Defense Portfolio"
+    ],
+    calculatorConfig: {
+      type: "tax-optimization",
+      title: "Tax Liability & Optimization Estimator"
+    }
   },
   {
     id: "auditing-assurance",
