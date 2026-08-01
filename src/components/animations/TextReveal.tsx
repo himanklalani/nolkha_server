@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -10,7 +10,7 @@ const container = {
   },
 };
 
-const child = {
+const child: Variants = {
   hidden: { opacity: 0, y: 30, rotateX: -45 },
   visible: {
     opacity: 1,

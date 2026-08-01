@@ -4,13 +4,14 @@ interface EyebrowProps {
   children: React.ReactNode;
   align?: 'left' | 'center';
   color?: 'primary' | 'accent' | 'white';
+  className?: string;
 }
 
-export const Eyebrow = ({ children, align = 'left', color = 'primary' }: EyebrowProps) => {
+export const Eyebrow = ({ children, align = 'left', color = 'primary', className = '' }: EyebrowProps) => {
   const textClass = color === 'primary' ? 'text-primary' : color === 'accent' ? 'text-accent' : 'text-white/60';
 
   return (
-    <div className={`mb-6 ${align === 'center' ? 'flex justify-center' : 'flex justify-start'}`}>
+    <div className={`mb-6 ${align === 'center' ? 'flex justify-center' : 'flex justify-start'} ${className}`}>
       <div className={`font-mono text-[10px] uppercase tracking-[0.3em] font-bold ${textClass}`}>
         <span className="opacity-40 mr-2">[</span>
         {children}

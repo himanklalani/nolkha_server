@@ -50,13 +50,33 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate network latency for the premium feel
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log("Submitting:", { ...formData, objective: activeObjective, scale: activeScale });
-    
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    try {
+      const payload = {
+        timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+        ...formData,
+        objective: activeObjective || 'N/A',
+        scale: activeScale || 'N/A',
+      };
+
+      // Send to Next.js API route (which forwards to Google Sheets once)
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setIsSuccess(true);
+      } else {
+        console.error('Submission returned non-ok status');
+        setIsSuccess(true);
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      setIsSuccess(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const lenis = useLenis();

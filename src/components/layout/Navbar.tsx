@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { NavHoverPill } from './NavHoverPill';
 import { ArrowRight, Wallet, FileText, Building, TrendingUp, Briefcase } from 'lucide-react';
 
@@ -49,7 +49,7 @@ export function Navbar() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const menuVars = {
+  const menuVars: Variants = {
     initial: { opacity: 0 },
     animate: { 
       opacity: 1,
@@ -61,12 +61,12 @@ export function Navbar() {
     }
   };
 
-  const containerVars = {
+  const containerVars: Variants = {
     initial: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     animate: { transition: { delayChildren: 0.2, staggerChildren: 0.1 } }
   };
 
-  const linkVars = {
+  const linkVars: Variants = {
     initial: { y: 20, opacity: 0 },
     animate: { 
       y: 0, opacity: 1, 
