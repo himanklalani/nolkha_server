@@ -74,7 +74,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-20" />
         </div>
 
-        <div className="relative z-30 text-center flex flex-col items-center mt-12 px-4">
+        <div className="relative z-30 text-center flex flex-col items-center mb-24 px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -111,10 +111,10 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-12 z-30 flex flex-col items-center gap-4"
+          className="absolute bottom-6 z-30 flex flex-col items-center gap-3"
         >
           <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted">Scroll to Discover</span>
-          <div className="w-[1px] h-12 bg-black/20 overflow-hidden relative">
+          <div className="w-[1px] h-8 bg-black/20 overflow-hidden relative">
             <motion.div 
               className="absolute top-0 left-0 w-full h-full bg-secondary"
               animate={{ y: ["-100%", "100%"] }}
