@@ -112,7 +112,7 @@ export default function Home() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
-          className="absolute bottom-6 z-30 flex flex-col items-center gap-3"
+          className="absolute bottom-4 z-30 flex flex-col items-center gap-3"
         >
           <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted">Scroll to Discover</span>
           <div className="w-[1px] h-8 bg-black/20 overflow-hidden relative">
