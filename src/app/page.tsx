@@ -88,9 +88,10 @@ export default function Home() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="text-muted font-sans tracking-[0.3em] uppercase text-xs md:text-sm text-center"
+            className="text-muted font-sans tracking-[0.3em] uppercase text-xs md:text-sm text-center leading-relaxed"
           >
-            The Architecture of Wealth <br className="md:hidden" /><span className="hidden md:inline">·</span> Premier CA in Thane & Mumbai
+            <span className="block">The Architecture of Wealth</span>
+            <span className="block mt-1 text-[10px] md:text-xs text-muted/60 tracking-[0.4em]">Premier CA in Thane & Mumbai</span>
           </motion.p>
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
